@@ -27,29 +27,38 @@ public class UserController {
     public ResponseEntity<String> registerUser(@RequestBody User user) {
 
         //TODO: check if user with the username exists
-       
+       if (repo.findByUsername(user.getUsername()) != null) {
+            return new ResponseEntity<>("Username already exists",HttpStatus.CONFLICT);
+       }
         //TODO: save the user
+        repo.save(user);
 
-        //TODO: remove below and return proper status
-        return new ResponseEntity<>( HttpStatus.NOT_IMPLEMENTED);
+        //TODO: remove below and return proper status or return 201 CREATED
+        return new ResponseEntity<>( "User registered successfully" ,HttpStatus.NOT_IMPLEMENTED);
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> list() {
+
+        List<User> users = repo.findAll();
         
         //TODO: remove below and return proper result
-        return new ResponseEntity<>( HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>( users ,HttpStatus.NOT_IMPLEMENTED);
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         
         //TODO: check if user with the id exists
+        if (!repo.existsById(id)) {
+            return new ResponseEntity<>("User not found" ,HttpStatus.NOT_FOUND);
+        }
        
         //TODO: delete the user
+        repo.deleteById(id);
     
         //TODO: remove below and return proper status
-        return new ResponseEntity<>( HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>("User deleted successfully", HttpStatus.NOT_IMPLEMENTED);
     }
 
 
