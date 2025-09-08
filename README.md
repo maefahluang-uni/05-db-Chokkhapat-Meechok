@@ -15,7 +15,8 @@ In UserRepository, declare the following methods that help to find all user and 
 - `data.sql` contains insert statements for dummy users. Find where this file is and explain what it is used for? 
 
 ```
-Your answer
+1. It contains SQL statements to insert initial (dummy) data into the H2 database automatically when the Spring Boot application starts.
+2. This allows the application and unit tests to have preloaded data without manually adding users.
 ```
 
 ## User Reservice - Complete the code
